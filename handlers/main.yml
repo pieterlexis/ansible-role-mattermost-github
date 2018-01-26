@@ -1,0 +1,9 @@
+---
+- name: reload systemd and restart mattermost-github
+  command: systemctl daemon-reload
+  notify: restart mattermost-github
+
+- name: restart mattermost-github
+  service:
+    name: mattermost-github
+    state: restarted

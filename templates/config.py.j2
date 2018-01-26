@@ -1,0 +1,15 @@
+USERNAME = "{{ mattermost_github_config_username }}"
+ICON_URL = "{{ mattermost_github_config_icon_url }}"
+SECRET = "{{ mattermost_github_config_secret }}"
+SHOW_AVATARS = {{ mattermost_github_config_show_avatars | bool }}
+SERVER = {
+    'hook': "{{ mattermost_github_config_server_hook }}",
+    'address': "{{ mattermost_github_config_server_address }}",
+    'port': {{ mattermost_github_config_server_port }}
+}
+MATTERMOST_WEBHOOK_URLS = {
+{{ mattermost_github_config_mattermost_webhook_urls }}
+}
+GITHUB_IGNORE_ACTIONS = {
+{{ mattermost_github_config_ignore_actions }}
+}

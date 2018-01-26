@@ -1,0 +1,24 @@
+---
+- name: Install prerequisites
+  apt:
+    name: "{{item}}"
+    state: latest
+  with_items:
+    - build-essential
+    - python-virtualenv
+    - python-pip
+    - python-dev
+    - libssl-dev
+    - libjpeg-dev
+    - libopenjpeg-dev
+    - libffi-dev
+    - git
+
+- include: install.yml
+- include: config.yml
+
+- name: start and enable mattermost-github
+  service:
+    name: mattermost-github.service
+    state: started
+    enabled: true

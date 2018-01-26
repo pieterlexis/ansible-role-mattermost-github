@@ -1,0 +1,14 @@
+[Unit]
+Description=Mattermost GitHub Integration
+After=network.target mattermost.service
+
+[Service]
+Type=simple
+ExecStart={{ mattermost_github_install_root }}/venv/bin/python {{ mattermost_github_install_root }}/mattermost-github-integration/server.py
+Restart=always
+RestartSec=10
+User={{ mattermost_github_user }}
+Group={{ mattermost_github_user }}
+
+[Install]
+WantedBy=multi-user.target

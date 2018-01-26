@@ -1,0 +1,6 @@
+---
+- name: Create mattermost-github-integration config
+  template:
+    src: config.py.j2
+    dest: "{{ mattermost_github_install_root }}/mattermost-github-integration/config.py"
+  notify: restart mattermost-github

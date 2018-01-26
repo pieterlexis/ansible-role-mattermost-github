@@ -1,0 +1,34 @@
+---
+- name: Create venv and install the latests pip
+  pip:
+    name: 'pip>=7'
+    virtualenv: "{{ mattermost_github_install_root }}/venv"
+
+- name: Install mattermost-github-integration dependencies
+  pip:
+    name: "{{ item }}"
+    virtualenv: "{{ mattermost_github_install_root }}/venv"
+  with_items:
+    - pyOpenSSL
+    - idna
+    - flask
+    - requests
+    - pillow
+
+- name: Checkout softdevteam/mattermost-github-integration
+  git:
+    dest: "{{ mattermost_github_install_root }}/mattermost-github-integration"
+    repo: https://github.com/softdevteam/mattermost-github-integration.git
+    version: "{{ mattermost_github_version }}"
+  notify: restart mattermost-github
+
+- name: Add mattermost-github.service
+  template:
+    src: mattermost-github.service.j2
+    dest: /etc/systemd/system/mattermost-github.service
+  notify: reload systemd and restart mattermost-github
+
+- name: Create a mattermost-github user
+  user:
+    name: "{{ mattermost_github_user }}"
+    createhome: no
